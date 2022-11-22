@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./assets/css/accounts.css">
+    <title>Accounts</title>
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+    <div id="app">
+        <div class="bg-dark">
+            <nav class="container navbar navbar-dark bg-dark navbar-expand-lg bg-light pt-4">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/home/index.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-bank" viewBox="0 0 16 16">
+                            <path
+                                d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.501.501 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89L8 0ZM3.777 3h8.447L8 1 3.777 3ZM2 6v7h1V6H2Zm2 0v7h2.5V6H4Zm3.5 0v7h1V6h-1Zm2 0v7H12V6H9.5ZM13 6v7h1V6h-1Zm2-1V4H1v1h14Zm-.39 9H1.39l-.25 1h13.72l-.25-1Z" />
+                        </svg>
+                        INTERNATIONAL BANK
+                    </a>
+                    <div class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                {{client.firstName}} {{client.lastName}}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings </a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a @click="logout()" class="dropdown-item">Logout</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                </div>
+            </nav>
+
+            <nav class="container navbar navbar-dark bg-dark navbar-expand-lg bg-light pt-2">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav me-auto">
+                            <a class="nav-link active" aria-current="page" href="./accounts.html">Home</a>
+                            <a class="nav-link" href="./cards.html">Cards</a>
+                            <a class="nav-link" href="./transfer.html">Transactions</a>
+                            <a class="nav-link" href="./loan-application.html">Loans</a>
+                            <a class="nav-link" href="#">Products</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="container">
+
+            <div class="d-flex justify-content-between pt-4">
+                <h2>Hi {{client.firstName}}</h2>
+                <p>Last access:</p>
+            </div>
+
+            <div class="d-flex">
+                <h4>Accounts</h4>
+
+                <div v-if="accounts.length < 3">
+                    <button class="btn pt-0" @click="buttonCreate()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div id="bodyCards" class="d-flex justify-content-start">
+                <div class="d-flex justify-content-around flex-column flex-wrap align-self-start">
+                    <div v-for="account in accounts" class="card bg-white mt-4" style="width: 50rem;">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Savings</h6>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center gap-2">
+                                    <img src="./assets/img/credit-card-front.svg" alt="" style="width: 60px;">
+                                    <h5 class="card-title pb-1">{{account.number}} </h5>
+                                </div>
+                                <p class="card-text">{{formatDollars(account.balance)}}</p>
+                            </div>
+                            <p class="pt-3">Creation Date: {{account.creationDate.split('T')[0]}}</p>
+                            <a :href="'./account.html?id=' + account.id" class="card-link">Transaction Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="loanCards" class="d-flex justify-content-center flex-wrap ms-auto mt-4">
+                    <div v-if="clientLoans.length == 0">
+                        <div class="card text-center text-bg-success align-self-start" style="width: 18rem;">
+                            <div class="card-body">
+                                <h6 class="card-text mb-2">Take out your loan right now</h6>
+                                <a href="#" class="card-link">Click Here!</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="clientLoans.length > 0">
+                        <div class="card text-center text-bg-success align-self-start" style="width: 18rem;">
+                            <div class="card-body">
+                                <h6 class="card-text mb-2">Check your credits</h6>
+                            </div>
+                        </div>
+
+                        <div v-for="loan in clientLoans" class="card bg-white align-self-start" style="width: 18rem;">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">Loan</h6>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="./assets/img/loan.svg" alt="" style="width: 60px;">
+                                        <h5 class="card-title pb-1">{{loan.name}} </h5>
+                                    </div>
+                                </div>
+                                <p class="card-text pt-1">Amount: {{formatDollars(loan.amount)}}</p>
+                                <p class="card-text">Payments: {{loan.payments}}</p>
+                                <!-- <p class="pt-3">Creation Date: {{account.creationDate.split('T')[0]}}</p> -->
+                                <a href="#" class="card-link">Loan Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="mt-auto">
+        <div class="bg-dark text-light d-flex justify-content-around text-center p-2 mt-4" style="align-items: center;">
+            <h4 class="m-0">INTERNATIONAL BANK</h4>
+            <p class="m-0">All rights reserved</p>
+            <p class="m-0">Mindhub C33</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+        integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+        crossorigin="anonymous"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="./assets/script/accounts.js"></script>
+</body>
+
+</html>

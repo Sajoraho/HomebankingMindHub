@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <title>Transfer</title>
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+    <div id="app">
+        <div class="bg-dark">
+            <nav class="container navbar navbar-dark bg-dark navbar-expand-lg bg-light pt-4">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/home/index.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-bank" viewBox="0 0 16 16">
+                            <path
+                                d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.501.501 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89L8 0ZM3.777 3h8.447L8 1 3.777 3ZM2 6v7h1V6H2Zm2 0v7h2.5V6H4Zm3.5 0v7h1V6h-1Zm2 0v7H12V6H9.5ZM13 6v7h1V6h-1Zm2-1V4H1v1h14Zm-.39 9H1.39l-.25 1h13.72l-.25-1Z" />
+                        </svg>
+                        INTERNATIONAL BANK
+                    </a>
+                    <div class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                {{client.firstName}} {{client.lastName}}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings </a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a @click="logout()" class="dropdown-item">Logout</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                </div>
+            </nav>
+
+            <nav class="container navbar navbar-dark bg-dark navbar-expand-lg bg-light pt-2">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav me-auto">
+                            <a class="nav-link" href="./accounts.html">Home</a>
+                            <a class="nav-link" href="./cards.html">Cards</a>
+                            <a class="nav-link active" aria-current="page" href="./transfer.html">Transactions</a>
+                            <a class="nav-link" href="./loan-application.html">Loans</a>
+                            <a class="nav-link" href="#">Products</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="container">
+            <div class="d-flex justify-content-between pt-4">
+                <h2>Hi {{client.firstName}}</h2>
+                <p>Last access:</p>
+            </div>
+
+            <h4>Transactions</h4>
+
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <div v-if="hiddenButton == false" class="d-flex flex-column">
+                        <h6>Choose to whom you are going to make the transfer</h6>
+                        <div class="d-flex justify-content-center gap-5">
+                            <button class="btn btn-primary btn-block mb-4"
+                                @click="hiddenPersonal = false; hiddenButton = true">Personal</button>
+                            <button class="btn btn-primary btn-block mb-4"
+                                @click="hiddenThird = false; hiddenButton = true">Third</button>
+                        </div>
+                    </div>
+
+                    <div v-if="hiddenPersonal == false" class="d-flex">
+                        <form @submit.prevent="createTransfer()">
+
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="accountOrigin">Select your account</label>
+                                        <select required class="form-control" v-model="accountOrigin" name="name"
+                                            id="accountOrigin">
+                                            <option disabled value="">Select your account</option>
+                                            <option v-for="clientAccount in clientAccounts">{{clientAccount}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="accountDestination">Select account
+                                            destination</label>
+                                        <!-- {{removeItems()}} -->
+                                        <select required class="form-control" v-model="accountDestination" name="name"
+                                            id="accountDestination">
+                                            <option disabled value="">Select account destination</option>
+                                            <template v-for="clientAccount in clientAccounts">
+                                                <option v-if="clientAccount !== accountOrigin">{{clientAccount}}
+                                                </option>
+                                            </template>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="amount">Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input class="form-control" id="amount" v-model="amount" type="number" name="name"
+                                        class="form-control" required="required">
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="description">Description</label>
+                                <textarea name="" id="" cols="20" rows="5" class="form-control" v-model="description"
+                                    type="text" name="name" class="form-control" required="required">
+                                </textarea>
+                            </div>
+
+                            <div>
+                                <button class="btn btn-primary btn-block mb-4" type="submit">Send</button>
+                                <button class="btn btn-danger btn-block mb-4"
+                                    @click="hiddenPersonal = true; hiddenButton = false" type="button">Back</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <option v-show="accountOrigin !== clientAccount" v-for="clientAccount in clientAccounts" >{{clientAccount}}</option> -->
+
+                    <div v-if="hiddenThird == false" class="d-flex">
+                        <form @submit.prevent="transfer()">
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="accountOrigin">Select your account</label>
+                                        <select required class="form-control" v-model="accountOrigin" name="name"
+                                            id="accountOrigin">
+                                            <option disabled value="">Select your account</option>
+                                            <option v-for="clientAccount in clientAccounts">{{clientAccount}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="accountDestination">Write account
+                                            destination</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">VIN</span>
+                                            <input required class="form-control" id="accountDestination"
+                                                v-model="accountDestination" type="text" name="name"
+                                                class="form-control" required="required">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="amount">Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input class="form-control" id="amount" v-model="amount" type="number" name="name"
+                                        class="form-control" required="required">
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="description">Description</label>
+                                <textarea name="" id="" cols="20" rows="5" class="form-control" v-model="description"
+                                    type="text" name="name" class="form-control" required="required">
+                                    </textarea>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-block mb-4" type="submit">Send</button>
+                                <button class="btn btn-danger btn-block mb-4"
+                                    @click="hiddenThird = true; hiddenButton = false" type="button">Back</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="mt-auto">
+        <div class="bg-dark text-light d-flex justify-content-around text-center p-2 mt-4" style="align-items: center;">
+            <h4 class="m-0">INTERNATIONAL BANK</h4>
+            <p class="m-0">All rights reserved</p>
+            <p class="m-0">Mindhub C33</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+        integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+        crossorigin="anonymous"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="./assets/script/transfer.js"></script>
+</body>
+
+</html>

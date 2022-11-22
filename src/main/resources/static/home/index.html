@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./css/index.css">
+    <title>Home</title>
+</head>
+
+<body class="bg-white d-flex flex-column min-vh-100">
+    <div class="bg-black pb-5">
+        <nav class="container navbar navbar-dark bg-black navbar-expand-lg bg-light pt-4">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/home/index.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-bank" viewBox="0 0 16 16">
+                        <path
+                            d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.501.501 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89L8 0ZM3.777 3h8.447L8 1 3.777 3ZM2 6v7h1V6H2Zm2 0v7h2.5V6H4Zm3.5 0v7h1V6h-1Zm2 0v7H12V6H9.5ZM13 6v7h1V6h-1Zm2-1V4H1v1h14Zm-.39 9H1.39l-.25 1h13.72l-.25-1Z" />
+                    </svg>
+                    INTERNATIONAL BANK
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav me-auto">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" href="#">Products</a>
+                        <a class="nav-link" href="#">Company</a>
+                        <a class="nav-link" href="#">News</a>
+                    </div>
+                    <button class="btn btn-outline-black text-light button-sign" type="button" data-bs-toggle="modal"
+                        data-bs-target="#modalLogin">Sign Up</button>
+                </div>
+            </div>
+        </nav>
+
+        <div id="app">
+            <div class="modal fade" id="modalLogin" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog text-dark">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="text-right"> <i class="fa fa-close close" data-dismiss="modal"></i> </div>
+                            <div class="tabs mt-3">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation"> <a class="nav-link active" id="visa-tab"
+                                            data-toggle="tab" href="#visa" role="tab" aria-controls="visa"
+                                            aria-selected="true">
+                                            Sign In </a> </li>
+                                    <li class="nav-item" role="presentation"> <a class="nav-link" id="paypal-tab"
+                                            data-toggle="tab" href="#paypal" role="tab" aria-controls="paypal"
+                                            aria-selected="false"> Sign Up </a> </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="visa" role="tabpanel"
+                                        aria-labelledby="visa-tab">
+                                        <div class="mt-4 mx-4">
+                                            <form @submit.prevent="login()" class="form mt-3">
+                                                <div class="inputbox"> <input v-model="email" type="email" name="name"
+                                                        class="form-control" required="required">
+                                                    <span>Email</span>
+                                                </div>
+                                                <div class="inputbox"> <input v-model="password" type="password"
+                                                        name="name" class="form-control" required="required">
+                                                    <span>Password</span> <i class="fa fa-eye"></i>
+                                                </div>
+                                                <div class="px-5 pay">
+                                                    <button type="submit" class="btn btn-success btn-block">Log
+                                                        In</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="paypal" role="tabpanel" aria-labelledby="paypal-tab">
+                                        <form @submit.prevent="register()" class="px-5 mt-5">
+                                            <div class="d-flex flex-row">
+                                                <div class="inputbox"> <input v-model="firstName" type="text"
+                                                        name="name" class="form-control" required="required">
+                                                    <span>First Name</span>
+                                                </div>
+                                                <div class="inputbox"> <input v-model="lastName" type="text" name="name"
+                                                        class="form-control" required="required">
+                                                    <span>Last Name</span>
+                                                </div>
+                                            </div>
+                                            <div class="inputbox"> <input v-model="email" type="email" name="name"
+                                                    class="form-control" required="required">
+                                                <span>Email</span>
+                                            </div>
+                                            <div class="inputbox"> <input v-model="password" type="password" name="name"
+                                                    class="form-control" required="required">
+                                                <span>Password</span>
+                                            </div>
+                                            <div class="inputbox"> <input v-model="rptPassword" type="password"
+                                                    name="name" class="form-control" required="required">
+                                                <span>Repeat Password</span>
+                                            </div>
+                                            <div class="pay px-5"> <button
+                                                    class="btn btn-primary btn-block">Register</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <main class="background">
+            <div class="main-section container d-flex justify-content-around flex-wrap p-5">
+                <div class="text-section" style="max-width: 60%;">
+                    <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h1>
+                    <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h4>
+                    <button class="btn btn-outline-black text-light mt-3 button-sign" type="button" href="#">GET
+                        STARTED</button>
+                </div>
+                <div>
+                    <div class="flip-box pt-5">
+                        <div class="flip-box-inner">
+                            <div class="flip-box-front">
+                                <img class="animated" id="card" src="/home/img/credit-card-front.svg"
+                                    alt="Credit Card Front">
+                            </div>
+                            <div class="flip-box-back">
+                                <img class="animated" id="card" src="/home/img/credit-card-back.svg"
+                                    alt="Credit Card Back">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+    </div>
+
+    <section id="clients" class="clients section-bg">
+        <div class="container">
+
+            <div class="row" data-aos="zoom-in">
+
+                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                    <img src="/home/img/clients/client-1.png" class="img-fluid" alt="">
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                    <img src="/home/img/clients/client-2.png" class="img-fluid" alt="">
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                    <img src="/home/img/clients/client-3.png" class="img-fluid" alt="">
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                    <img src="/home/img/clients/client-4.png" class="img-fluid" alt="">
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                    <img src="/home/img/clients/client-5.png" class="img-fluid" alt="">
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                    <img src="/home/img/clients/client-6.png" class="img-fluid" alt="">
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="about" class="about text-dark">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>About Us</h2>
+            </div>
+
+            <div class="row content">
+                <div class="col-lg-6">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore
+                        magna aliqua.
+                    </p>
+                    <ul>
+                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat
+                        </li>
+                        <li><i class="ri-check-double-line"></i> Duis aute irure dolor in reprehenderit in voluptate
+                            velit</li>
+                        <li><i class="ri-check-double-line"></i> Ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0">
+                    <p>
+                        Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit
+                        in voluptate
+                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <a href="#" class="btn-learn-more">Learn More</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    </main>
+
+    <footer class="mt-auto">
+        <div class="bg-black text-light d-flex justify-content-around text-center p-2 mt-4"
+            style="align-items: center;">
+            <h4 class="m-0">INTERNATIONAL BANK</h4>
+            <p class="m-0">All rights reserved</p>
+            <p class="m-0">Mindhub C33</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="./script/index.js"></script>
+</body>
+
+</html>

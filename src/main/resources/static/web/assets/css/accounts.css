@@ -1,0 +1,25 @@
+body{
+    background-image: url(/web/assets/img/bg-background.jpg);
+    background-repeat: repeat;
+}
+
+@media screen and (max-width: 768px) {
+
+    .card{
+        width: 45rem !important;
+    }
+
+    #bodyCards {
+        flex-direction: column !important;
+    }
+
+    #loanCards {
+        margin-top: 5vh !important;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .card{
+        width: 24rem !important;
+    }
+}
