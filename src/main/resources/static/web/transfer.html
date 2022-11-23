@@ -5,13 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./assets/css/transfer.css">
 
     <title>Transfer</title>
 </head>
 
-<body class="bg-light d-flex flex-column min-vh-100">
+<body class="bg-light d-flex flex-column min-vh-100 background">
     <div id="app">
         <div class="bg-dark">
             <nav class="container navbar navbar-dark bg-dark navbar-expand-lg bg-light pt-4">
@@ -63,133 +66,140 @@
             </nav>
         </div>
 
-        <div class="container">
-            <div class="d-flex justify-content-between pt-4">
-                <h2>Hi {{client.firstName}}</h2>
-                <p>Last access:</p>
-            </div>
-
-            <h4>Transactions</h4>
-
+        <main>
             <div class="container">
-                <div class="d-flex justify-content-center">
-                    <div v-if="hiddenButton == false" class="d-flex flex-column">
-                        <h6>Choose to whom you are going to make the transfer</h6>
-                        <div class="d-flex justify-content-center gap-5">
-                            <button class="btn btn-primary btn-block mb-4"
-                                @click="hiddenPersonal = false; hiddenButton = true">Personal</button>
-                            <button class="btn btn-primary btn-block mb-4"
-                                @click="hiddenThird = false; hiddenButton = true">Third</button>
+                <div class="d-flex justify-content-between pt-4">
+                    <h2>Hi {{client.firstName}}</h2>
+                    <p>Last access:</p>
+                </div>
+
+                <h4>Transactions</h4>
+
+                <div class="container">
+                    <div class="d-flex justify-content-center">
+                        <div v-if="hiddenButton == false" class="d-flex flex-column">
+                            <h6>Choose to whom you are going to make the transfer</h6>
+                            <div class="d-flex justify-content-center gap-5">
+                                <button class="btn btn-primary btn-block mb-4"
+                                    @click="hiddenPersonal = false; hiddenButton = true">Personal</button>
+                                <button class="btn btn-primary btn-block mb-4"
+                                    @click="hiddenThird = false; hiddenButton = true">Third</button>
+                            </div>
                         </div>
-                    </div>
 
-                    <div v-if="hiddenPersonal == false" class="d-flex">
-                        <form @submit.prevent="createTransfer()">
+                        <div v-if="hiddenPersonal == false" class="d-flex">
+                            <form @submit.prevent="createTransfer()">
 
-                            <div class="row mb-4">
-                                <div class="col">
-                                    <div class="form-outline">
-                                        <label class="form-label" for="accountOrigin">Select your account</label>
-                                        <select required class="form-control" v-model="accountOrigin" name="name"
-                                            id="accountOrigin">
-                                            <option disabled value="">Select your account</option>
-                                            <option v-for="clientAccount in clientAccounts">{{clientAccount}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-outline">
-                                        <label class="form-label" for="accountDestination">Select account
-                                            destination</label>
-                                        <!-- {{removeItems()}} -->
-                                        <select required class="form-control" v-model="accountDestination" name="name"
-                                            id="accountDestination">
-                                            <option disabled value="">Select account destination</option>
-                                            <template v-for="clientAccount in clientAccounts">
-                                                <option v-if="clientAccount !== accountOrigin">{{clientAccount}}
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="accountOrigin">Select your account</label>
+                                            <select required class="form-control" v-model="accountOrigin" name="name"
+                                                id="accountOrigin">
+                                                <option disabled value="">Select your account</option>
+                                                <option v-for="clientAccount in clientAccounts">{{clientAccount}}
                                                 </option>
-                                            </template>
-                                        </select>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="amount">Amount</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">$</span>
-                                    <input class="form-control" id="amount" v-model="amount" type="number" name="name"
-                                        class="form-control" required="required">
-                                </div>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="description">Description</label>
-                                <textarea name="" id="" cols="20" rows="5" class="form-control" v-model="description"
-                                    type="text" name="name" class="form-control" required="required">
-                                </textarea>
-                            </div>
-
-                            <div>
-                                <button class="btn btn-primary btn-block mb-4" type="submit">Send</button>
-                                <button class="btn btn-danger btn-block mb-4"
-                                    @click="hiddenPersonal = true; hiddenButton = false" type="button">Back</button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- <option v-show="accountOrigin !== clientAccount" v-for="clientAccount in clientAccounts" >{{clientAccount}}</option> -->
-
-                    <div v-if="hiddenThird == false" class="d-flex">
-                        <form @submit.prevent="transfer()">
-                            <div class="row mb-4">
-                                <div class="col">
-                                    <div class="form-outline">
-                                        <label class="form-label" for="accountOrigin">Select your account</label>
-                                        <select required class="form-control" v-model="accountOrigin" name="name"
-                                            id="accountOrigin">
-                                            <option disabled value="">Select your account</option>
-                                            <option v-for="clientAccount in clientAccounts">{{clientAccount}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-outline">
-                                        <label class="form-label" for="accountDestination">Write account
-                                            destination</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">VIN</span>
-                                            <input required class="form-control" id="accountDestination"
-                                                v-model="accountDestination" type="text" name="name"
-                                                class="form-control" required="required">
+                                    <div class="col">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="accountDestination">Select account
+                                                destination</label>
+                                            <!-- {{removeItems()}} -->
+                                            <select required class="form-control" v-model="accountDestination"
+                                                name="name" id="accountDestination">
+                                                <option disabled value="">Select account destination</option>
+                                                <template v-for="clientAccount in clientAccounts">
+                                                    <option v-if="clientAccount !== accountOrigin">{{clientAccount}}
+                                                    </option>
+                                                </template>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="amount">Amount</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">$</span>
-                                    <input class="form-control" id="amount" v-model="amount" type="number" name="name"
-                                        class="form-control" required="required">
-                                </div>
-                            </div>
 
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="description">Description</label>
-                                <textarea name="" id="" cols="20" rows="5" class="form-control" v-model="description"
-                                    type="text" name="name" class="form-control" required="required">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="amount">Amount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input class="form-control" id="amount" v-model="amount" type="number"
+                                            name="name" class="form-control" required="required">
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="description">Description</label>
+                                    <textarea name="" id="" cols="20" rows="5" class="form-control"
+                                        v-model="description" type="text" name="name" class="form-control"
+                                        required="required">
+                                </textarea>
+                                </div>
+
+                                <div>
+                                    <button class="btn btn-primary btn-block mb-4" type="submit">Send</button>
+                                    <button class="btn btn-danger btn-block mb-4"
+                                        @click="hiddenPersonal = true; hiddenButton = false" type="button">Back</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- <option v-show="accountOrigin !== clientAccount" v-for="clientAccount in clientAccounts" >{{clientAccount}}</option> -->
+
+                        <div v-if="hiddenThird == false" class="d-flex">
+                            <form @submit.prevent="transfer()">
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="accountOrigin">Select your account</label>
+                                            <select required class="form-control" v-model="accountOrigin" name="name"
+                                                id="accountOrigin">
+                                                <option disabled value="">Select your account</option>
+                                                <option v-for="clientAccount in clientAccounts">{{clientAccount}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="accountDestination">Write account
+                                                destination</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">VIN</span>
+                                                <input required class="form-control" id="accountDestination"
+                                                    v-model="accountDestination" type="text" name="name"
+                                                    class="form-control" required="required">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="amount">Amount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input class="form-control" id="amount" v-model="amount" type="number"
+                                            name="name" class="form-control" required="required">
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="description">Description</label>
+                                    <textarea name="" id="" cols="20" rows="5" class="form-control"
+                                        v-model="description" type="text" name="name" class="form-control"
+                                        required="required">
                                     </textarea>
-                            </div>
-                            <div>
-                                <button class="btn btn-primary btn-block mb-4" type="submit">Send</button>
-                                <button class="btn btn-danger btn-block mb-4"
-                                    @click="hiddenThird = true; hiddenButton = false" type="button">Back</button>
-                            </div>
-                        </form>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary btn-block mb-4" type="submit">Send</button>
+                                    <button class="btn btn-danger btn-block mb-4"
+                                        @click="hiddenThird = true; hiddenButton = false" type="button">Back</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        </main>
 
     </div>
 

@@ -1,0 +1,20 @@
+.background{
+    position: relative; 
+    width: 100%;
+}
+
+.background::before{
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+
+    background-image: url("/web/assets/img/bg-transaction.jpg");
+    opacity: 0.02;
+}
+
+button{
+    position: relative;
+}

@@ -1,5 +1,44 @@
 @import url('https://fonts.googleapis.com/css?family=Space+Mono:400,400i,700,700i');
 
+.background{
+    position: relative; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.background::before{
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+
+    background-image: url("/web/assets/img/bg-credit.jpg");
+    opacity: 0.02;
+}
+
+button{
+    position: relative;
+}
+
+.card-border{
+    border: 20px ridge #3E6D9C;
+    padding: 0vh 5vh 0vh 5vh;
+    margin-bottom: 2vh;
+}
+
+.card-title{
+    border-bottom: 2px solid;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    margin-bottom: 3vh;
+    font-size: 20px;
+    text-align: center;
+}
+
 .card {
     box-sizing: border-box;
     font-family: 'Space Mono', monospace;
@@ -44,7 +83,7 @@
 }
 
 .gold {
-    background: linear-gradient(to right bottom, #f1de65 0%, #feaa43 100%);
+    background: linear-gradient(to right bottom, #fff95b 0%, #ff930f 100%);
 }
 
 .silver {

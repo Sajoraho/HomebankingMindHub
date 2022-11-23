@@ -1,6 +1,25 @@
-body{
-    background-image: url(/web/assets/img/bg-background.jpg);
-    background-repeat: repeat;
+main{
+    position: relative; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main::before{
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+
+    background-image: url('/web/assets/img/bg-bank.jpg');
+    opacity: 0.05;
+}
+
+button{
+    position: relative;
 }
 
 @media screen and (max-width: 768px) {

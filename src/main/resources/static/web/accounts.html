@@ -65,6 +65,10 @@
             </nav>
         </div>
 
+        <main>
+
+        
+
         <div class="container">
 
             <div class="d-flex justify-content-between pt-4">
@@ -100,7 +104,10 @@
                                 <p class="card-text">{{formatDollars(account.balance)}}</p>
                             </div>
                             <p class="pt-3">Creation Date: {{account.creationDate.split('T')[0]}}</p>
-                            <a :href="'./account.html?id=' + account.id" class="card-link">Transaction Details</a>
+                            <div class="d-flex justify-content-between">
+                                <a :href="'./account.html?id=' + account.id" class="card-link">Transaction Details</a>
+                                <Button class="btn btn-secondary d-flex align-items-center">Delete Account</Button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,6 +150,8 @@
         </div>
 
     </div>
+
+</main>
 
     <footer class="mt-auto">
         <div class="bg-dark text-light d-flex justify-content-around text-center p-2 mt-4" style="align-items: center;">

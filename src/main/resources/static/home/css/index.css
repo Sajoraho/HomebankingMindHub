@@ -3,18 +3,46 @@ body {
     color: white;
 }
 
-.background{
-    background-image: url(/home/img/bg-img.jpg);
-    height: 500px;
-    background-repeat: no-repeat;
-    background-size: cover;
+.background {
+    position: relative; 
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 400px;
 }
 
-.text-section>h1, .text-section>h4{
+/* .background::before {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+} */
+
+.background::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+
+    background-image: url(/home/img/bg-vector.jpg);
+    background-repeat: repeat;
+    opacity: 0.2;
+}
+
+.text-section > h1,
+.text-section > h4 {
     -webkit-text-stroke: 0.4px black;
     padding-top: 10vh;
+    color: white;  
 }
-
 
 /* button */
 
@@ -372,22 +400,23 @@ input::-webkit-inner-spin-button {
 }
 
 @media screen and (max-width: 768px) {
-    .text-section>h1, .text-section>h4 {
+    .text-section > h1,
+    .text-section > h4 {
         padding-top: 0;
     }
 
-    .background{
+    .background {
         height: 380px;
     }
 }
 
 @media screen and (max-width: 480px) {
-    .text-section>h1, .text-section>h4 {
+    .text-section > h1,
+    .text-section > h4 {
         font-size: 16px;
     }
 
-    .background{
+    .background {
         height: 350px;
-
     }
 }
