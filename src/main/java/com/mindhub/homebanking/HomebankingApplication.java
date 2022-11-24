@@ -32,7 +32,7 @@ public class HomebankingApplication {
 									  ClientLoanRepository clientLoanRepository,
 									  CardRepository cardRepository){
 		return args -> {
-//
+
 //			Client client1 = new Client("Santiago","Rojas","sajoraho@gmail.com", passwordEncoder.encode("1234"));
 //			Client client2 = new Client("Pedro","Peréz","pedro@perez.com", passwordEncoder.encode("1234"));
 //			Client client3 = new Client("Melba","Morel","melba@mindhub.com", passwordEncoder.encode("1234"));
@@ -43,18 +43,18 @@ public class HomebankingApplication {
 //			clientRepository.save(client3);
 //			clientRepository.save(admin);
 //
-//			Account account1 = new Account("VIN001", LocalDateTime.now(), 5000.00);
-//			Account account2 = new Account("VIN002", LocalDateTime.now().plusDays(1), 7500.00, client1); // Account Constructor 2
-//			Account account3 = new Account("VIN003", LocalDateTime.now().plusDays(2), 4000.00);
-//			Account account4 = new Account("VIN004", LocalDateTime.now().plusDays(-1), 10000.00);
-//			Account account5 = new Account("VIN005", LocalDateTime.now().plusDays(-2), 6000.00);
-//			Account account6 = new Account("VIN006", LocalDateTime.now().plusDays(-5), 1000.00);
+//			Account account1 = new Account("VIN001", LocalDateTime.now(), 5000.00, AccountType.CHECKING, client1);
+//			Account account2 = new Account("VIN002", LocalDateTime.now().plusDays(1), 7500.00, AccountType.SAVINGS,  client1); // Account Constructor 2
+//			Account account3 = new Account("VIN003", LocalDateTime.now().plusDays(2), 4000.00, AccountType.SAVINGS, client3);
+//			Account account4 = new Account("VIN004", LocalDateTime.now().plusDays(-1), 10000.00, AccountType.CHECKING, client3);
+//			Account account5 = new Account("VIN005", LocalDateTime.now().plusDays(-2), 6000.00, AccountType.SAVINGS, client3); // Account Constructor
+//			Account account6 = new Account("VIN006", LocalDateTime.now().plusDays(-5), 1000.00, AccountType.CHECKING, client3);
 //
-//			client1.addAccount(account1); //accounts.add(account);
-//			client3.addAccount(account3);
-//			client3.addAccount(account4);
-//			client3.addAccount(account5);
-//			client3.addAccount(account6);
+////			client1.addAccount(account1); //accounts.add(account);
+////			client3.addAccount(account3);
+////			client3.addAccount(account4);
+////			client3.addAccount(account5);
+////			client3.addAccount(account6);
 //
 //			accountRepository.save(account1);
 //			accountRepository.save(account2);

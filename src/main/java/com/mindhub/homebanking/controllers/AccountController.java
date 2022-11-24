@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -44,7 +45,8 @@ public class AccountController {
     }
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<?> createAccount(Authentication authentication){
+    public ResponseEntity<?> createAccount(Authentication authentication,
+                                            @RequestParam AccountType type){
         Client clientCurrent = clientService.findByEmail(authentication.getName());
 
         if(clientCurrent.getAccounts().size() >= 3){
@@ -55,6 +57,7 @@ public class AccountController {
             Account account = new Account(accountNumber,
                     LocalDateTime.now(),
                     0.0,
+                    type,
                     clientCurrent);
 
             accountService.saveAccount(account);
@@ -64,7 +67,7 @@ public class AccountController {
 
     @PatchMapping("/clients/current/account/delete/{id}")
     public ResponseEntity<?> deleteAccount(Authentication authentication,
-                                           @PathVariable Long id){
+                                            @PathVariable Long id){
         Client clientCurrent = clientService.findByEmail(authentication.getName());
         Set<Account> accountCurrent = clientCurrent.getAccounts();
 
@@ -83,6 +86,10 @@ public class AccountController {
 
         if (!accountCurrent.contains(accountDelete)){
             return new ResponseEntity<>("Account not found", HttpStatus.FORBIDDEN);
+        }
+
+        if(accountDelete.getBalance() > 0){
+            return new ResponseEntity<>("Account has balance", HttpStatus.FORBIDDEN);
         }
 
         accountDelete.setEnabled(false);

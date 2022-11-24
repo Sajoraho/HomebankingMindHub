@@ -9,4 +9,6 @@ public interface LoanService {
     public Loan findById(long id);
 
     public List<LoanDTO> getLoanDTO();
+
+    public void saveLoan(Loan loan);
 }

@@ -116,4 +116,38 @@ public class LoanController {
         return new ResponseEntity<>("Sucefully transaction", HttpStatus.CREATED);
     }
 
+    @PostMapping("/loan")
+    public ResponseEntity<?> createLoan(Authentication authentication,
+                                        @RequestBody Loan loan){
+        Client clientCurrent = clientService.findByEmail(authentication.getName());
+
+        if(clientCurrent == null) {
+            return new ResponseEntity<>("Client not found", HttpStatus.FORBIDDEN);
+        }
+
+//        if(clientCurrent.getEmail() != "admin@admin.com"){
+//            return new ResponseEntity<>("Client not admin", HttpStatus.FORBIDDEN);
+//        }
+
+        if(loan.getName().isEmpty()){
+            return new ResponseEntity<>("Name empty", HttpStatus.FORBIDDEN);
+        }
+
+        if(loan.getMaxAmount().equals(0) || loan.getMaxAmount().equals(null)){
+            return new ResponseEntity<>("Invalid amount", HttpStatus.FORBIDDEN);
+        }
+
+        if(loan.getPayments().isEmpty()){
+            return new ResponseEntity<>("Payments empty", HttpStatus.FORBIDDEN);
+        }
+
+        Loan createLoan = new Loan(loan.getName(),
+                loan.getMaxAmount(),
+                loan.getPayments());
+
+        loanService.saveLoan(createLoan);
+
+        return new ResponseEntity<>("Loan created", HttpStatus.CREATED);
+    }
+
 }

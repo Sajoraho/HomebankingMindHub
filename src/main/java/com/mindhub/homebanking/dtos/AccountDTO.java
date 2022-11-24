@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.dtos;
 
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +15,7 @@ public class AccountDTO {
     private String number;
     private LocalDateTime creationDate;
     private Double balance;
-
+    private AccountType type;
     Set<TransactionDTO> transactions = new HashSet<>();
 
     public AccountDTO(Account account) {
@@ -22,6 +23,7 @@ public class AccountDTO {
         this.number = account.getNumber();
         this.creationDate = account.getCreationDate();
         this.balance = account.getBalance();
+        this.type = account.getType();
         this.transactions = account.getTransactions().stream().map(transaction -> new TransactionDTO(transaction)).collect(Collectors.toSet());
     }
 
@@ -40,7 +42,9 @@ public class AccountDTO {
     public Double getBalance() {
         return balance;
     }
-
+    public AccountType getType() {
+        return type;
+    }
     public Set<TransactionDTO> getTransactions() {
         return transactions;
     }

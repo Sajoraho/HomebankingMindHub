@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -81,6 +82,7 @@ public class ClientController {
         Account account = new Account(accountNumber,
                 LocalDateTime.now(),
                 0.0,
+                AccountType.SAVINGS,
                 clientCreated);
 
         accountService.saveAccount(account);

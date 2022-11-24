@@ -17,6 +17,7 @@ public class Account {
     private String number;
     private LocalDateTime creationDate;
     private Double balance;
+    private AccountType type;
     private Boolean enabled = true;
 
     //----------------------------------------------------------------
@@ -31,17 +32,12 @@ public class Account {
     public Account() { //para indicar que voy a tener un constructor con parametros
     }
 
-    public Account(String number, LocalDateTime creationDate, Double balance) {
-        this.number = number;
-        this.creationDate = creationDate;
-        this.balance = balance;
-    }
-
     //Constructor 2
-    public Account(String number, LocalDateTime creationDate, Double balance, Client client) {
+    public Account(String number, LocalDateTime creationDate, Double balance, AccountType type, Client client) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
+        this.type = type;
         this.client = client;
     }
 
@@ -73,6 +69,14 @@ public class Account {
         this.balance = balance;
     }
 
+    public AccountType getType() {
+        return type;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
+    }
+
     public Boolean getEnabled() {
         return enabled;
     }
@@ -97,10 +101,10 @@ public class Account {
     }
     //----------------------------------------------------------------
 
-    public void addTransaction(Transaction transaction) {
-        transaction.setAccount(this);
-        transactions.add(transaction);
-    }
+//    public void addTransaction(Transaction transaction) {
+//        transaction.setAccount(this);
+//        transactions.add(transaction);
+//    }
 
     @Override
     public String toString() {

@@ -8,6 +8,7 @@ const app = Vue.createApp({
             number: '',
             balance: '',
             date: '',
+            type: ''
         }
     },
 
@@ -31,6 +32,7 @@ const app = Vue.createApp({
                 this.number = this.clientTransactions.number
                 this.balance = this.clientTransactions.balance
                 this.date = this.clientTransactions.creationDate
+                this.type = this.clientTransactions.type
                 this.transactions = this.clientTransactions.transactions
 
                 this.transactions = this.transactions.sort((a, b) => a.id - b.id)
