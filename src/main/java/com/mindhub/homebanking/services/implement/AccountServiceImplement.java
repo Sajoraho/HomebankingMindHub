@@ -21,7 +21,7 @@ public class AccountServiceImplement implements AccountService {
     }
 
     @Override
-    public AccountDTO getAccount(long id) {
+    public AccountDTO getAccountDTO(long id) {
         return accountRepository.findById(id).map(account -> new AccountDTO(account)).orElse(null);
     }
 
@@ -33,5 +33,10 @@ public class AccountServiceImplement implements AccountService {
     @Override
     public Account findByNumber(String number) {
         return accountRepository.findByNumber(number);
+    }
+
+    @Override
+    public Account findById(long id) {
+        return accountRepository.findById(id).orElse(null);
     }
 }

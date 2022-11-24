@@ -8,9 +8,11 @@ import java.util.List;
 public interface AccountService {
     public List<AccountDTO> getAccountDTO();
 
-    public AccountDTO getAccount(long id);
+    public AccountDTO getAccountDTO(long id);
 
     public void saveAccount(Account account);
 
     public Account findByNumber(String number);
+
+    public Account findById(long id);
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -35,7 +36,7 @@ public class AccountController {
 
     @GetMapping("/accounts/{id}")
     public AccountDTO getAccount(@PathVariable long id){
-        return accountService.getAccount(id);
+        return accountService.getAccountDTO(id);
     }
 
     public long getRandomNumber() {
@@ -59,7 +60,35 @@ public class AccountController {
             accountService.saveAccount(account);
 
             return new ResponseEntity<>("Account created", HttpStatus.CREATED);
+    }
 
+    @PatchMapping("/clients/current/account/delete/{id}")
+    public ResponseEntity<?> deleteAccount(Authentication authentication,
+                                           @PathVariable Long id){
+        Client clientCurrent = clientService.findByEmail(authentication.getName());
+        Set<Account> accountCurrent = clientCurrent.getAccounts();
+
+        if(clientCurrent == null){
+            return new ResponseEntity<>("Client not found", HttpStatus.FORBIDDEN);
+        }
+        if(id == 0 || id == null){
+            return new ResponseEntity<>("Invalid id", HttpStatus.FORBIDDEN);
+        }
+
+        Account accountDelete = accountService.findById(id);
+
+        if (accountDelete == null){
+            return new ResponseEntity<>("Account not found", HttpStatus.FORBIDDEN);
+        }
+
+        if (!accountCurrent.contains(accountDelete)){
+            return new ResponseEntity<>("Account not found", HttpStatus.FORBIDDEN);
+        }
+
+        accountDelete.setEnabled(false);
+        accountService.saveAccount(accountDelete);
+
+        return new ResponseEntity<>("Account deleted", HttpStatus.OK);
     }
 
 }

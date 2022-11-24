@@ -1,3 +1,7 @@
+/* *{
+    border: solid .1rem red;
+} */
+
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: white;
@@ -44,6 +48,28 @@ body {
     color: white;  
 }
 
+#myTabContent input{
+    background-color: #269cc1;
+    color: white;
+    width: 80%;
+}
+
+#myTabContent input:focus{
+    box-shadow: 3px 3px 5px solid black;
+}
+
+.modal-body {
+    background-image: url('/home/img/bg-bank.jpg');
+}
+
+form{
+    align-content: center;
+}
+
+.inputbox{
+    display: flex;
+    justify-content: center;
+}
 /* button */
 
 .button-sign {
@@ -314,6 +340,8 @@ section {
     } */
 }
 
+
+
 .launch {
     height: 50px;
 }
@@ -322,11 +350,12 @@ section {
     cursor: pointer;
 }
 .modal-body {
-    height: 450px;
+    height: 380px;
 }
 .nav-tabs {
     border: none !important;
 }
+
 .nav-tabs .nav-link.active {
     color: #495057;
     background-color: #fff;
@@ -340,6 +369,8 @@ section {
     border-top-right-radius: 0rem;
     border-top: 3px solid #eee;
     font-size: 20px;
+    color: blue;
+    background-color: white;
 }
 .nav-tabs .nav-link:hover {
     border-color: #e9ecef #ffffff #ffffff;
@@ -371,8 +402,10 @@ section {
 .inputbox span {
     position: absolute;
     top: 7px;
-    left: 11px;
+    left: 50px;
     transition: 0.5s;
+    color: white;
+    font-weight: 500;
 }
 .inputbox i {
     position: absolute;

@@ -89,7 +89,7 @@ public class CardController {
         deletedCard.setEnabled(false);
         cardService.saveCard(deletedCard);
 
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return new ResponseEntity<>("Card deleted", HttpStatus.OK);
     }
 
 }

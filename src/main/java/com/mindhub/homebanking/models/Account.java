@@ -17,6 +17,7 @@ public class Account {
     private String number;
     private LocalDateTime creationDate;
     private Double balance;
+    private Boolean enabled = true;
 
     //----------------------------------------------------------------
     @ManyToOne(fetch = FetchType.EAGER)
@@ -70,6 +71,14 @@ public class Account {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     //----------------------------------------------------------------

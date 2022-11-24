@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -30,11 +31,11 @@ public class PDFGeneratorService implements PDFService {
         Font fontTitle = FontFactory.getFont(FontFactory.TIMES_BOLD);
         fontTitle.setSize(18);
 
-        Paragraph title = new Paragraph("Transacciones", fontTitle);
+        Paragraph title = new Paragraph("Transactions", fontTitle);
         title.setAlignment(Paragraph.ALIGN_CENTER);
         Font fontParagraph = FontFactory.getFont(FontFactory.TIMES_ROMAN);
         fontParagraph.setSize(12);
-        Paragraph subtitle = new Paragraph("Transacciones de cuentas." + account.getNumber(), fontParagraph);
+        Paragraph subtitle = new Paragraph("Account Transactions:" + account.getNumber(), fontParagraph);
         subtitle.setAlignment(Paragraph.ALIGN_CENTER);
         Paragraph space = new Paragraph("                                                             ");
         Paragraph space2 = new Paragraph("                                                            ");
@@ -50,11 +51,12 @@ public class PDFGeneratorService implements PDFService {
 
 
         var table = new PdfPTable(4);
-        Stream.of("Fecha de Creacion","Monto","Tipo", "Descripcion").forEach(table::addCell);
+        Stream.of("Creation Date","Amount","Type","Description").forEach(table::addCell);
 
         transactions.forEach(transaction -> {
-            table.addCell(transaction.getDate().toString());
-            table.addCell("$" +transaction.getAmount());
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+            table.addCell(dateTimeFormatter.format(transaction.getDate()));
+            table.addCell("$ " +transaction.getAmount());
             table.addCell(transaction.getType().toString());
             table.addCell(transaction.getDescription());
 

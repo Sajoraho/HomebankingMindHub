@@ -85,6 +85,40 @@ const app = Vue.createApp({
                     text: `${errorData}`
                 })
             })
+        },
+
+        buttonDeleteAccount(str){
+            Swal.fire({
+                title: 'Delete Account',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.deleteAccount(str)
+                    Swal.fire(
+                        'Deleted!',
+                        'You have deleted an account.',
+                        'success'
+                        )   
+                    }
+                })
+        },
+
+        deleteAccount(id){
+            axios.patch(`/api/clients/current/account/delete/${id}`)
+                .then(() => this.loadData(this.url))
+                .catch(error => {
+                    let errorData = error.response.data
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `${errorData}`
+                    })
+                })
         }
     },
     

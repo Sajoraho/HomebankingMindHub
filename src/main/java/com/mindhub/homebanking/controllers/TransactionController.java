@@ -109,10 +109,10 @@ public class TransactionController {
         return new ResponseEntity<>("Sucefully transaction", HttpStatus.CREATED);
     }
 
-    LocalDateTime localDateTimeFrom = LocalDateTime.now().minusDays(7);
+    LocalDateTime localDateTimeFrom = LocalDateTime.now().minusDays(30);
     String accountNumber;
     LocalDateTime localDateNow = LocalDateTime.now();
-    LocalDateTime localDateMinus = LocalDateTime.now().minusDays(7);
+    LocalDateTime localDateMinus = LocalDateTime.now().minusDays(30);
 
     @PostMapping("/pdf")
     public ResponseEntity<?> getPdf(Authentication authentication,
@@ -120,8 +120,8 @@ public class TransactionController {
                                     @RequestParam String localDateMinus){
         Client clientCurrent = clientService.findByEmail(authentication.getName());
         accountNumber = number;
-        if(localDateMinus.equals("semana")){
-            localDateTimeFrom = LocalDateTime.now().minusDays(7);
+        if(localDateMinus.equals("month")){
+            localDateTimeFrom = LocalDateTime.now().minusDays(30);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     };

@@ -64,7 +64,7 @@
                                     <div class="tab-pane fade show active" id="visa" role="tabpanel"
                                         aria-labelledby="visa-tab">
                                         <div class="mt-4 mx-4">
-                                            <form @submit.prevent="login()" class="form mt-3">
+                                            <form @submit.prevent="login()" class="form mt-3 d-flex flex-column align-items-center justify-content-center">
                                                 <div class="inputbox"> <input v-model="email" type="email" name="name"
                                                         class="form-control" required="required">
                                                     <span>Email</span>
@@ -74,14 +74,14 @@
                                                     <span>Password</span> <i class="fa fa-eye"></i>
                                                 </div>
                                                 <div class="px-5 pay">
-                                                    <button type="submit" class="btn btn-success btn-block">Log
+                                                    <button type="submit" class="btn btn-outline-black text-light button-sign">Log
                                                         In</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="paypal" role="tabpanel" aria-labelledby="paypal-tab">
-                                        <form @submit.prevent="register()" class="px-5 mt-5">
+                                        <form @submit.prevent="register()" class="d-flex flex-column align-items-center justify-content-center">
                                             <div class="d-flex flex-row">
                                                 <div class="inputbox"> <input v-model="firstName" type="text"
                                                         name="name" class="form-control" required="required">
@@ -105,7 +105,7 @@
                                                 <span>Repeat Password</span>
                                             </div>
                                             <div class="pay px-5"> <button
-                                                    class="btn btn-primary btn-block">Register</button>
+                                                    class="btn btn-outline-black text-light button-sign">Register</button>
                                             </div>
                                         </form>
                                     </div>

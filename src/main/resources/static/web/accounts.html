@@ -106,7 +106,7 @@
                             <p class="pt-3">Creation Date: {{account.creationDate.split('T')[0]}}</p>
                             <div class="d-flex justify-content-between">
                                 <a :href="'./account.html?id=' + account.id" class="card-link">Transaction Details</a>
-                                <Button class="btn btn-secondary d-flex align-items-center">Delete Account</Button>
+                                <Button @click="buttonDeleteAccount(account.id)" class="btn btn-secondary d-flex align-items-center">Delete Account</Button>
                             </div>
                         </div>
                     </div>
